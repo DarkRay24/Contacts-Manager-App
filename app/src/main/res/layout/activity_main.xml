@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="userViewModel"
+            type="com.example.contactsmanager.viewmodel.UserViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity"
+        android:background="#CE131313">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/card_background"
+
+            style="@style/CustomCardViewStyle"
+            app:cardElevation="6dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/conLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/tvAppTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Contacts App"
+                    android:gravity=""
+                    android:textSize="28sp"
+                    android:paddingStart="8dp"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="16dp"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toTopOf="@id/conLayout1"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/name_wrapper"
+                    style="@style/text_input_greeting"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Name : "
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvAppTitle">
+
+                    <!--Name EditText-->
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etName"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={userViewModel.inputName}" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/email_wrapper"
+                    style="@style/text_input_greeting"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Email : "
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/name_wrapper">
+
+                    <!--Email EditText-->
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etEmail"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={userViewModel.inputEmail}" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    app:layout_constraintBottom_toBottomOf="@id/conLayout1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/email_wrapper">
+
+                    <!--Save Button-->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnSave"
+                        style="@style/button_greeting"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+
+                        android:onClick="@{()->userViewModel.saveOrUpdate()}"
+                        android:text="@={userViewModel.saveOrUpdateButtonText}" />
+
+                    <!--Delete Button-->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnDelete"
+                        style="@style/button_greeting"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+
+                        android:onClick="@{()->userViewModel.clearAllOrDelete()}"
+                        android:text="@={userViewModel.clearAllOrDeleteButtonText}" />
+                </LinearLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <!-- Title 2 -->
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8sp"
+            android:text="Saved Contacts"
+            android:textColor="@color/white"
+            android:layout_marginTop="8dp"
+            android:textSize="24sp"
+            app:layout_constraintTop_toBottomOf="@id/cardView" />
+
+        <!--        <View-->
+        <!--            android:id="@+id/viewBar"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="1dp"-->
+        <!--            android:background="#CFCFCF"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/tvTitle"/>-->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvContacts"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
